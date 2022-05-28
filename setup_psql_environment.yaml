@@ -1,0 +1,4 @@
+PGHOST: localhost
+PGDATABASE: stock_data
+PGUSER: postgres
+PGPORT: 5432
