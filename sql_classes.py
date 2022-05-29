@@ -7,20 +7,12 @@ import enum
 
 Base = declarative_base()
 
-class PriceFrequency(enum.Enum):
-    daily = 'daily'
-    weekly = 'weekly'
-    monthly = 'monthly'
-    quarterly = 'quarterly'
-    yearly = 'yearly'
-
 class Security(Base):
     __tablename__ = 'security'
     id = Column(Integer, primary_key=True, autoincrement=True)
     id_intrinio = Column('id_intrinio', String(10), unique=True, nullable=False)
     code = Column('code', String(3), nullable=False)
     currency = Column('currency', String(3), nullable=False)
-    ticker = Column('ticker', String(12), nullable=False)
     name = Column('name', String(200), nullable=False)
     figi = Column('figi', String(12))
     composite_figi = Column('composite_figi', String(12))
@@ -28,8 +20,6 @@ class Security(Base):
     exchange_id = Column(Integer, ForeignKey('exchange.id',
                                     onupdate="CASCADE",
                                     ondelete="SET NULL"))
-    has_invalid_data = Column('has_invalid_data', Boolean)
-    has_missing_company = Column('has_missing_company', Boolean)
     exchange = relationship('Exchange')
     company = relationship('Company')
 
@@ -50,13 +40,7 @@ class SecurityPrice(Base):
     low = Column('low', Float)
     close = Column('close', Float)
     volume = Column('volume', BigInteger)
-    adj_open = Column('adj_open', Float)
-    adj_high = Column('adj_high', Float)
-    adj_low = Column('adj_low', Float)
     adj_close = Column('adj_close', Float)
-    adj_volume = Column('adj_volume', BigInteger)
-    intraperiod = Column('intraperiod', Boolean, nullable=False)
-    frequency = Column('frequency', Enum(PriceFrequency),nullable=False)
     security_id = Column(Integer, ForeignKey('security.id',
                                     onupdate="CASCADE",
                                     ondelete="CASCADE"),
