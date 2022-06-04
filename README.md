@@ -31,3 +31,7 @@ pass: root
 4. Verify setup
 
 stock_data -> stock_data -> Schemas -> Tables
+
+## Database connection
+
+Refer to `connection_test.ipynb`
