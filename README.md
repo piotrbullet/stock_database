@@ -32,6 +32,10 @@ pass: root
 
 stock_data -> stock_data -> Schemas -> Tables
 
+## Database connection
+
+Refer to `connection_test.ipynb`
+
 docker run --name postgres-db -e POSTGRES_PASSWORD=root -p 5433:5432 -d postgres
 
 5. Create and populate database
