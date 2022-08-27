@@ -1,4 +1,5 @@
 PGHOST: localhost
-PGDATABASE: stock_data
-PGUSER: root
-PGPORT: 5432
+PGDATABASE: postgres
+PGUSER: postgres
+PGPORT: 5433
+PGPASS: root
