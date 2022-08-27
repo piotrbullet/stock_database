@@ -38,7 +38,7 @@ Refer to `connection_test.ipynb`
 
 docker run --name postgres-db -e POSTGRES_PASSWORD=root -p 5433:5432 -d postgres
 
-5. Create and populate database
+## Populating database
 
 Run create_database.py script, this will create a database structure.
 
