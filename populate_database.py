@@ -82,8 +82,8 @@ if __name__ == "__main__":
     highest_id = 0
 
     # -- Comment after doing it once
-    insert_exchange(db, 'NYSE', 'USD')
-    populate_securities_with_csv(db, 'data\\nyse_data.csv')
+    # insert_exchange(db, 'NYSE', 'USD')
+    # populate_securities_with_csv(db, 'data\\nyse_data.csv')
     # --
 
     while highest_id < 7918:
