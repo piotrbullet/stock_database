@@ -82,13 +82,18 @@ if __name__ == "__main__":
     session = Session()
     highest_id = 0
 
-    # -- Comment after doing it once
-    # insert_exchange(db, 'NYSE', 'USD')
-    # populate_securities_with_csv(db, './data/nyse_data.csv')
-    # --
+    try:
+        with db.connect() as connection:
+            with connection.begin():
+                insert_exchange(db, 'NYSE', 'USD')
+        with db.connect() as connection:
+            with connection.begin():
+                populate_securities_with_csv(db, './data/nyse_data.csv')
+    except:
+        pass
 
     while highest_id < 7918:
-        # with db.connect() as connection:
-        #     with connection.begin():
-        #         highest_id = connection.execute("SELECT MAX(ticker_id) FROM price").fetchall()[0][0]
+        with db.connect() as connection:
+            with connection.begin():
+                highest_id = connection.execute("SELECT MAX(ticker_id) FROM price").fetchall()[0][0]
         populate_prices(db, 50)

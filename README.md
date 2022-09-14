@@ -36,7 +36,7 @@ stock_data -> stock_data -> Schemas -> Tables
 
 Refer to `connection_test.ipynb`
 
-docker run --name postgres-db -e POSTGRES_PASSWORD=root -p 5433:5432 -d postgres
+docker run --name postgres-db -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
 
 ## Populating database
 
