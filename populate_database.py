@@ -21,15 +21,16 @@ def populate_securities_with_csv(engine, csv_path: str) -> None:
                'IPO Year', 'Volume', '% Change'], axis=1, inplace=True)
     nyse.columns = ['Ticker', 'Name', 'Sector', 'Industry']
     nyse['exchange_id'] = 1
-    
-    with engine.connect() as connection:
-        with connection.begin():
-            for row in nyse.itertuples(index=False):
+
+    for row in nyse.itertuples(index=False):
+        with engine.connect() as connection:
+            with connection.begin():
                 try:
                     connection.execute(f"INSERT INTO security (ticker, name, sector, industry, exchange_id) "
                                        f"VALUES ('{row.Ticker}', '{row.Name}', '{row.Sector}', '{row.Industry}',"
                                        f" {row.exchange_id})")
                 except:
+                    continue
                     connection.execute(f"INSERT INTO security (ticker, name, exchange_id) "
                                        f"VALUES ('{row.Ticker}', '{row.Name}', {row.exchange_id})")
 
@@ -83,11 +84,11 @@ if __name__ == "__main__":
 
     # -- Comment after doing it once
     # insert_exchange(db, 'NYSE', 'USD')
-    # populate_securities_with_csv(db, 'data\\nyse_data.csv')
+    # populate_securities_with_csv(db, './data/nyse_data.csv')
     # --
 
     while highest_id < 7918:
-        with db.connect() as connection:
-            with connection.begin():
-                highest_id = connection.execute("SELECT MAX(ticker_id) FROM price").fetchall()[0][0]
+        # with db.connect() as connection:
+        #     with connection.begin():
+        #         highest_id = connection.execute("SELECT MAX(ticker_id) FROM price").fetchall()[0][0]
         populate_prices(db, 50)
