@@ -10,13 +10,9 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: stock_data
     network_mode: host
-    # ports:
-    #   - "5432:5432" 
 
-  base_populator:
-    build: ../
-    # ports:
-    #   - "8000:8000"
+  database_setup:
+    build: ../database_setup
     logging:
       driver: none
     network_mode: host
@@ -24,12 +20,10 @@ services:
       - /bin/sh
       - -c
       - |
-        ls
-        set -x
         python3 create_database.py
         python3 populate_database.py
 
   webserver:
-    build: .
+    build: ../web_server
     network_mode: host
     command: python3 dashboard.py
