@@ -131,6 +131,8 @@ def update_graph(start_date, end_date, value):
 	data_tuple = {}
 	for val in value:
 		data = pd.read_sql(f"SELECT date, low FROM price WHERE (date >= '{start_date}' AND date <= '{end_date}') AND (ticker_id in (SELECT id FROM security WHERE sector='{val}'))", dbConnection)
+		data = data.drop_duplicates(subset = ["date"]).sort_values(by="date")
+		print(data)
 		data_tuple[f"{val}"] = data
 	
 	layout = go.Layout(xaxis=dict(
