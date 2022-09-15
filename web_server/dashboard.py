@@ -115,6 +115,7 @@ def set_choice2(value):
 )
 def update_graph(choice1, choice2):
 	df_plot1 = pd.read_sql(f"SELECT date, {choice2} FROM price WHERE ticker_id in (SELECT id FROM security WHERE ticker='{choice1}')", dbConnection)
+	df_plot1 = df_plot1.drop_duplicates(subset = ["date"]).sort_values(by="date")
 	fig1 = px.line(df_plot1, x='date', y=choice2)
 	return fig1
 	
